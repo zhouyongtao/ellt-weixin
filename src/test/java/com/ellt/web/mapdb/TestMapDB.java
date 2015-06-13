@@ -14,7 +14,7 @@ public class TestMapDB {
     //文件路径
     private static String filePath="D:\\idea\\Java\\homeinns-web\\cache\\HomeinnsCache";
 
-    @Test
+   // @Test
     public void init(){
         //configure and open database using builder pattern.
         //all options are available with code auto-completion.
@@ -36,7 +36,7 @@ public class TestMapDB {
         db.close();
     }
 
-    @Test
+   // @Test
     public void create(){
         /*
         String path= TestMapDB.class.getResource("").getPath();
@@ -49,7 +49,7 @@ public class TestMapDB {
         db.close();
     }
 
-    @Test
+    //@Test
     public void get(){
         DB db = DBMaker.newFileDB(new File(filePath)).make();
         Map map = db.getHashMap("HotelData");

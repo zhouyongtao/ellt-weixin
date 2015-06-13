@@ -1,4 +1,6 @@
 package com.ellt.web.controller;
+import com.github.sd4324530.fastweixin.api.OauthAPI;
+import com.github.sd4324530.fastweixin.api.config.ApiConfig;
 import com.github.sd4324530.fastweixin.handle.EventHandle;
 import com.github.sd4324530.fastweixin.handle.MessageHandle;
 import com.github.sd4324530.fastweixin.message.BaseMsg;
@@ -21,6 +23,9 @@ import java.util.List;
 @RequestMapping("/weixin")
 public class WeixinController extends WeixinControllerSupport {
     private static final Logger logger = LoggerFactory.getLogger(WeixinController.class);
+
+    private static final String AppId = "wxb762296355110c77";
+    private static final String AppSecret = "wxb762296355110c77";
     //令牌
     private static final String TOKEN = "e_llt";
     //设置TOKEN，用于绑定微信服务器
@@ -61,5 +66,17 @@ public class WeixinController extends WeixinControllerSupport {
         List<EventHandle> handles = new ArrayList<EventHandle>();
         //handles.add(new MyEventHandle());
         return handles;
+    }
+
+    /**
+     * oauth2 授权
+     * @return
+     */
+    @RequestMapping("/oauth2")
+    public String oauth2() {
+        ApiConfig config = new ApiConfig(AppId,AppSecret);
+        OauthAPI oauthAPI = new OauthAPI(config);
+        logger.info("weixin oauth2 ");
+        return "home/index";
     }
 }

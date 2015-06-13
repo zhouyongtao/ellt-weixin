@@ -21,11 +21,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //@ContextConfiguration(locations ="/dispatcher-servlet.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestMyBatis {
-    @Autowired
-    private SqlSession sqlSession;
+    //@Autowired
+    //private SqlSession sqlSession;
 
-    @Test
-    public void delete(){
-        this.sqlSession.delete("bookMapper.deleteByPrimaryKey", 5);
-    }
+    //@Test
+    //public void delete(){
+      //  this.sqlSession.delete("bookMapper.deleteByPrimaryKey", 5);
+   // }
 }
