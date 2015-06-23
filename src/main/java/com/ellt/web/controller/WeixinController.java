@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import static com.alibaba.fastjson.JSON.toJSONString;
 
 /**
  * 微信公众号控制器
@@ -96,7 +97,7 @@ public class WeixinController extends WeixinControllerSupport {
         OauthAPI oauthAPI = new OauthAPI(new ApiConfig(AppId,AppSecret));
         OauthGetTokenResponse oauthGetToken =oauthAPI.getToken(code);
         GetUserInfoResponse oauthUserInfo= oauthAPI.getUserInfo(oauthGetToken.getAccessToken(),oauthGetToken.getOpenid());
-        request.setAttribute("userInfo",JSON.toJSONString(oauthUserInfo));
+        request.setAttribute("userInfo", toJSONString(oauthUserInfo));
         request.setAttribute("user",oauthUserInfo);
         return "weixin/oauth2";
     }
