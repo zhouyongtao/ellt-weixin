@@ -1,6 +1,10 @@
 package com.ellt.web.controller;
+import com.alibaba.fastjson.JSON;
 import com.github.sd4324530.fastweixin.api.OauthAPI;
 import com.github.sd4324530.fastweixin.api.config.ApiConfig;
+import com.github.sd4324530.fastweixin.api.enums.OauthScope;
+import com.github.sd4324530.fastweixin.api.response.GetUserInfoResponse;
+import com.github.sd4324530.fastweixin.api.response.OauthGetTokenResponse;
 import com.github.sd4324530.fastweixin.handle.EventHandle;
 import com.github.sd4324530.fastweixin.handle.MessageHandle;
 import com.github.sd4324530.fastweixin.message.BaseMsg;
@@ -10,8 +14,9 @@ import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +24,13 @@ import java.util.List;
  * 微信公众号控制器
  * Created by Irving on 2014/7/6.
  */
-@RestController
+@Controller
 @RequestMapping("/weixin")
 public class WeixinController extends WeixinControllerSupport {
     private static final Logger logger = LoggerFactory.getLogger(WeixinController.class);
 
     private static final String AppId = "wxb762296355110c77";
-    private static final String AppSecret = "wxb762296355110c77";
+    private static final String AppSecret = "5942b6bad3f2267e6750edd26b8136a6";
     //令牌
     private static final String TOKEN = "e_llt";
     //设置TOKEN，用于绑定微信服务器
@@ -72,11 +77,27 @@ public class WeixinController extends WeixinControllerSupport {
      * oauth2 授权
      * @return
      */
+    @RequestMapping("/authorize")
+    public String authorize() {
+        OauthAPI oauthAPI = new OauthAPI(new ApiConfig(AppId,AppSecret));
+        String url=oauthAPI.getOauthPageUrl("http://liuliangtong.cn/wx/weixin/oauth2", OauthScope.SNSAPI_USERINFO, "ellt");
+        return "redirect:"+url;
+    }
+
+    /**
+     * 授权成功页
+     * @param code
+     * @param state
+     * @return
+     */
     @RequestMapping("/oauth2")
-    public String oauth2() {
-        ApiConfig config = new ApiConfig(AppId,AppSecret);
-        OauthAPI oauthAPI = new OauthAPI(config);
-        logger.info("weixin oauth2 ");
-        return "home/index";
+    public String oauth2(HttpServletRequest request,String code,String state) {
+        logger.info("weixin oauth2 code :"+code +" state : "+state);
+        OauthAPI oauthAPI = new OauthAPI(new ApiConfig(AppId,AppSecret));
+        OauthGetTokenResponse oauthGetToken =oauthAPI.getToken(code);
+        GetUserInfoResponse oauthUserInfo= oauthAPI.getUserInfo(oauthGetToken.getAccessToken(),oauthGetToken.getOpenid());
+        request.setAttribute("userInfo",JSON.toJSONString(oauthUserInfo));
+        request.setAttribute("user",oauthUserInfo);
+        return "weixin/oauth2";
     }
 }

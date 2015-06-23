@@ -12,39 +12,53 @@ ellt-weixin
 
 
 #文档
+
 Maven
 -----
 http://mvnrepository.com/<br/>
 http://search.maven.org/
+
 Spring
 ------
 http://projects.spring.io/spring-framework/<br/>
 http://docs.spring.io/spring/docs/4.0.5.RELEASE/spring-framework-reference/html/spring-web.html
+
 Mybatis
 -------
 http://mybatis.github.io/spring/zh/index.html
+
 FreeMarker
 ---------
 http://freemarker.org/
+
 Druid
 -----
 https://github.com/alibaba/druid
+
 Quartz
 ------
 http://quartz-scheduler.org/documentation
+
 Ehcache
 -------
 http://ehcache.org/documentation/get-started
+
 OsCache
 -------
 https://java.net/downloads/oscache/
+
 MapDB
 -----
 http://www.mapdb.org/doc/cheatsheet.pdf
 http://www.mapdb.org/02-getting-started.html
+
 Logback
 -------
 http://logback.qos.ch/manual/index.html
+
+fastweixin
+---------
+http://git.oschina.net/pyinjava/fastweixin
 
 ##测试 OAuth2
 ###获得授权码
