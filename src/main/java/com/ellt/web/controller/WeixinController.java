@@ -57,13 +57,13 @@ public class WeixinController extends WeixinControllerSupport {
     protected BaseMsg handleTextMsg(TextReqMsg msg) {
         String content = msg.getContent();
         logger.debug("用户发送到服务器的内容:{}", content);
-        return new TextMsg("hava fun,by irving !");
+        return new TextMsg("hava fun,by irving 涛涛!");
     }
 
     @Override
     protected BaseMsg handleSubscribe(BaseEvent event) {
-        logger.info("handleSubscribe json: "+ toJSON(event));
         UserAPI userAPI =new UserAPI(new ApiConfig(AppId,AppSecret));
+        logger.info("handleSubscribe json: "+ toJSON(event) + "  userAPI : "+toJSON(userAPI));
         GetUserInfoResponse user= userAPI.getUserInfo(event.getFromUserName());
         String msg ="Hi "+user.getNickname()+" 欢迎关注流量通!";
         return new TextMsg(msg);
