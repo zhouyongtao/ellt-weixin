@@ -57,7 +57,7 @@ public class WeixinController extends WeixinControllerSupport {
     protected BaseMsg handleTextMsg(TextReqMsg msg) {
         String content = msg.getContent();
         logger.debug("用户发送到服务器的内容:{}", content);
-        return new TextMsg("hava fun,by irving 涛涛!");
+        return new TextMsg("hava fun,by irving!");
     }
 
     @Override
